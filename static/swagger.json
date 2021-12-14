@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Posts---------Users---------To do",
+    "version": "1.0.0",
+    "title": "Flask Swagger Ui",
+    "contact": {
+      "email": "western.ant2@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Post request",
+      "description": "Requesting the post from the database"
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "get": {
+        "tags": [
+          "Get  Post request"
+        ],
+        "summary": "Returns all available posts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/filmsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Post request creating"
+        ],
+        "summary": "Create a new post",
+        "requestBody": {
+          "description": "Requesting post object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/posts",
+                "image": {
+
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/posts/{uuid}": {
+      "get": {
+        "tags": [
+          "Post request"
+        ],
+        "summary": "Get the post with the given UUID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "description": "Post request uuid",
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/post"
+            }
+          },
+          "400": {
+            "description": "Failed, wrong data!"
+          },
+          "404": {
+            "description": "Failed. Post was not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "Edit a post request by uuid",
+        "tags": [
+          "Post request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "description": "Post Request uuid",
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Post Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/post"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/post"
+            }
+          },
+          "400": {
+            "description": "Failed.Wrong data"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Post Request by UUID",
+        "tags": [
+          "Post Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "description": "Post Request uuid",
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#components/schemas/uuid"
+            }
+          },
+          "400": {
+            "description": "Failed Misunedrstood Request"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "uuid": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "posts": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "author": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": {
+            "type": "string",
+            "format": "string"
+          },
+           "rendered_data_of_pic": {
+            "type": "string",
+            "format": "binary"
+          },
+            "url": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "post": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "format": "string"
+          },
+          "author": {
+            "type": "string",
+            "format": "string"
+          },
+          "description": {
+            "type": "string",
+            "format": "string"
+          },
+            "rendered_data_of_pic": {
+            "type": "string",
+            "format": "binary",
+          },
+            "url": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+    }
+  }
+}
